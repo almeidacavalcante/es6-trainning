@@ -19,6 +19,9 @@ var form = document.querySelector('.form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
+    var transactionController = new TransactionController();
+    transactionController.add();
+    
     var tr = setupTrWithFields(fields);
     console.log(tr);
     

@@ -11,7 +11,7 @@
     
     <h1 class="text-center">Negociações</h1>
     
-    <form class="form">
+    <form class="form" onsubmit="transactionController.add(event)">
         
         <div class="form-group">
             <label for="data">Data</label>
@@ -60,14 +60,16 @@
     </table>
     
     <script src="js/app/models/Transaction.js"></script>
+    <script src="js/app/controllers/TransactionController.js"></script>
+    <script src="js/app/helpers/DateHelper.js"></script>
+    <script src="js/app/models/TransactionList.js"></script>
+    <script src="js/practice/practiceDate.js"></script>
 
-    <script>
-        var t1 = new Transaction();
-        console.log(t1);
+
+    <script>        
+        let transactionController = new TransactionController()
         
-
-
-
+        
     </script>
 </body>
 </html>

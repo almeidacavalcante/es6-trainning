@@ -1,26 +1,26 @@
 class Transaction {
 
-    constructor (data, quantidade, valor){
-        this._data = new Date(data.getTime());
-        this._quantidade = quantidade;
-        this._valor = valor;
+    constructor (date, quantity, value){
+        this._date = new Date(date.getTime());
+        this._quantity = quantity;
+        this._value = value;
 
         Object.freeze(this);
     }
 
     get volume(){
-        return this.quantidade * this.valor;
+        return this.quantity * this.value;
     }
 
-    get quantidade(){
-        return this._quantidade;
+    get quantity(){
+        return this._quantity;
     }
 
-    get valor(){
-        return this._valor;
+    get value(){
+        return this._value;
     }
 
-    get data(){
-        return new Date(this._data.getDate());
+    get date(){
+        return new Date(this._date.getDate());
     }
 }
