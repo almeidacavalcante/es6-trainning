@@ -6,6 +6,7 @@ class TransactionController {
         this._inputQuantity = $('#quantidade');
         this._inputValue = $('#valor');
         this._transactionList = new TransactionList();
+        this._transactionsView = new TransactionsView();
         //Object.freeze(this);
     }
 
@@ -17,8 +18,8 @@ class TransactionController {
 
         this._transactionList.add(this._createTransaction());
         this._clear();
-
-        console.log(this._transactionList.transactions);
+        
+        this._transactionsView.update(this._transactionList.transactions);
     }
 
     _createTransaction(){

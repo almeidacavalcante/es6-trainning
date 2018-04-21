@@ -23,4 +23,8 @@ class Transaction {
     get date(){
         return new Date(this._date.getDate());
     }
+
+    get stringDate(){
+        return DateHelper.toString(this._date);
+    }
 }
