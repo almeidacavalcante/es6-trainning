@@ -22,7 +22,7 @@ class TransactionsView {
             </thead>
             
             <tbody>
-                ${transactionList.map(transaction => `
+                ${transactionList.transactions.map(transaction => `
                     
                     <tr>
                         <td>${transaction.stringDate}</td>
@@ -35,6 +35,14 @@ class TransactionsView {
             </tbody>
             
             <tfoot>
+                <tr>
+                    <td colspan='3'></td>
+                    <td>
+                        ${transactionList.transactions.reduce((total, n) => total + n.volume, 0.0)}
+                    </td>
+
+
+                </tr>
             </tfoot>
         </table>
         

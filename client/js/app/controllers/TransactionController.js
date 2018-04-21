@@ -19,7 +19,7 @@ class TransactionController {
         this._transactionList.add(this._createTransaction());
         this._clear();
         
-        this._transactionsView.update(this._transactionList.transactions);
+        this._transactionsView.update(this._transactionList);
     }
 
     _createTransaction(){
