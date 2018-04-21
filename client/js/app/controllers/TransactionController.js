@@ -2,24 +2,29 @@ class TransactionController {
 
     constructor() {
         let $ = document.querySelector.bind(document);
+
         this._inputDate = $('#data');
         this._inputQuantity = $('#quantidade');
         this._inputValue = $('#valor');
+
         this._transactionList = new TransactionList();
-        this._transactionsView = new TransactionsView();
-        //Object.freeze(this);
+        this._transactionView = new TransactionView();
+
+        this._message = new Message();
+        this._messageView = new MessageView();
     }
 
     add(event) {
 
         event.preventDefault();
 
-        console.log(this._inputDate.value);
-
         this._transactionList.add(this._createTransaction());
+        this._message.text = 'Transaction successfully included!';
+        this._messageView.update(this._message);
+
         this._clear();
         
-        this._transactionsView.update(this._transactionList);
+        this._transactionView.update(this._transactionList);
     }
 
     _createTransaction(){

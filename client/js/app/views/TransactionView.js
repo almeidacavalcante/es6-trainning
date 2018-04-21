@@ -1,4 +1,4 @@
-class TransactionsView {
+class TransactionView {
 
     constructor(){
         this._viewLocation = document.querySelector('#transactions-view');
