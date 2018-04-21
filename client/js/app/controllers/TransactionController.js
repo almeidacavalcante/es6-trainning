@@ -8,10 +8,10 @@ class TransactionController {
         this._inputValue = $('#valor');
 
         this._transactionList = new TransactionList();
-        this._transactionView = new TransactionView();
+        this._transactionView = new TransactionView($('#transaction-view'));
 
         this._message = new Message();
-        this._messageView = new MessageView();
+        this._messageView = new MessageView($('#message-view'));
     }
 
     add(event) {
@@ -19,6 +19,7 @@ class TransactionController {
         event.preventDefault();
 
         this._transactionList.add(this._createTransaction());
+
         this._message.text = 'Transaction successfully included!';
         this._messageView.update(this._message);
 

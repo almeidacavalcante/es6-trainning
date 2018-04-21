@@ -1,0 +1,43 @@
+.fadeOut{
+    animation-name: hide-message;
+    transition: all 2s ease-in-out;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.fadeIn{
+    animation-name: show-message;
+    transition: all 3s ease-in-out;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    height: 0px;
+    overflow: hidden;
+}
+
+@keyframes show-message {
+    0% {
+        opacity: 0;
+        height: 0px;
+    }
+    100% {
+        opacity: 1;
+        height: 72px;
+    }
+}
+
+@keyframes hide-message {
+    0% {
+        opacity: 1;
+        height: 72px;
+
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
+}

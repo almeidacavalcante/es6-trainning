@@ -1,15 +1,10 @@
-class TransactionView {
+class TransactionView extends View {
 
-    constructor(){
-        this._viewLocation = document.querySelector('#transactions-view');
-
+    constructor(element){
+        super(element);
     }
 
-    update(transactionList){
-        this._viewLocation.innerHTML = this._template(transactionList);
-    }
-
-    _template(transactionList){
+    template(model){
         return `
         <table class="table table-hover table-bordered">
             <thead>
@@ -22,7 +17,7 @@ class TransactionView {
             </thead>
             
             <tbody>
-                ${transactionList.transactions.map(transaction => `
+                ${model.transactions.map(transaction => `
                     
                     <tr>
                         <td>${transaction.stringDate}</td>
@@ -38,7 +33,7 @@ class TransactionView {
                 <tr>
                     <td colspan='3'></td>
                     <td>
-                        ${transactionList.transactions.reduce((total, n) => total + n.volume, 0.0)}
+                        ${model.transactions.reduce((total, n) => total + n.volume, 0.0)}
                     </td>
 
 
@@ -49,10 +44,10 @@ class TransactionView {
         `;
     }
 
-    _generateTr(transactionList){
-        console.log(transactionList);
+    _generateTr(model){
+        console.log(model);
         
-        transactionList.forEach(transaction => {
+        model.forEach(transaction => {
             let tr = document.createElement('tr');
        
             
