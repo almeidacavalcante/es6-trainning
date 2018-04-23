@@ -21,4 +21,8 @@ class TransactionList {
 
         return [].concat(this._transactionList);
     }
+
+    get totalVolume(){
+        return this._transactionList.reduce((total, next) => total + next.volume, 0.0);
+    }
 }

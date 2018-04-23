@@ -33,7 +33,7 @@ class TransactionView extends View {
                 <tr>
                     <td colspan='3'></td>
                     <td>
-                        ${model.transactions.reduce((total, n) => total + n.volume, 0.0)}
+                        ${model.totalVolume}
                     </td>
 
 

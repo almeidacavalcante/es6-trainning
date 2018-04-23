@@ -34,6 +34,27 @@ class TransactionController {
         this._clear();
     }
 
+    import(){
+        let service = new TransactionService();
+        service.import('semana', (err, transactionList) => {
+            console.log(transactionList);
+            
+            if (err) {
+                this._message.text = err;
+                return;
+            }
+            console.log(typeof(transactionList));
+            
+            transactionList.forEach(transaction => {
+                console.log(transaction);
+                console.log(transaction.date);
+                
+                this._transactionList.add(transaction.date, transaction.quantity, transaction.value);
+            });
+        });
+        
+    }
+
     _createTransaction(){
 
         let date = DateHelper.stringToDate(this._inputDate.value)
