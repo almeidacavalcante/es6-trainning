@@ -7,25 +7,31 @@ class TransactionController {
         this._inputQuantity = $('#quantidade');
         this._inputValue = $('#valor');
 
-        this._transactionList = new TransactionList();
-        this._transactionView = new TransactionView($('#transaction-view'));
+        this._transactionList = new Bind(
+            new TransactionList(), 
+            new TransactionView($('#transaction-view')),
+            'add', 'clear'
+        );
 
-        this._message = new Message();
-        this._messageView = new MessageView($('#message-view'));
+        this._message = new Bind(
+            new Message(),
+            new MessageView($('#message-view')),
+            'text'
+        );
+    }
+
+    clear(){
+
+        this._transactionList.clear();
+        this._message.text = 'Transactions List successfully cleared';
     }
 
     add(event) {
 
         event.preventDefault();
-
         this._transactionList.add(this._createTransaction());
-
         this._message.text = 'Transaction successfully included!';
-        this._messageView.update(this._message);
-
         this._clear();
-        
-        this._transactionView.update(this._transactionList);
     }
 
     _createTransaction(){

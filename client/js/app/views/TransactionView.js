@@ -43,32 +43,4 @@ class TransactionView extends View {
         
         `;
     }
-
-    _generateTr(model){
-        console.log(model);
-        
-        model.forEach(transaction => {
-            let tr = document.createElement('tr');
-       
-            
-            let tdDate = this._generateTd(transaction.stringDate);
-            let tdQuantity = this._generateTd(transaction.quantity);
-            let tdValue = this._generateTd(transaction.value);
-            let tdVolume = this._generateTd(transaction.volume);
-
-            tr.appendChild(tdDate);
-            tr.appendChild(tdQuantity);
-            tr.appendChild(tdValue);
-            tr.appendChild(tdVolume);
-
-            let tbody = document.querySelector('table tbody');
-            tbody.appendChild(tr);
-        });
-    }
-
-    _generateTd(value){
-        let td = document.createElement('td');
-        td.textContent = value;
-        return td
-    }
 }
