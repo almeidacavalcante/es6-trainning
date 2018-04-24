@@ -10,11 +10,6 @@ class ProxyFactory {
                     
                     return function(){
 
-                        console.log(`${prop} INTERCEPTED!`);
-                        
-                        // target[prop] is the function on the target object. (add() for example)
-                        // target is the actual object
-                        // arguments is the parameters past to the current method of the target object (add(...parameters) for example)
                         let retorno = Reflect.apply(target[prop], target, arguments);
                         action(target);
                         return retorno;

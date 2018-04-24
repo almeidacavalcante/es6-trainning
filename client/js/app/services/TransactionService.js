@@ -1,32 +1,41 @@
 class TransactionService {
 
-    import(weekName, callback) {
-        let xhr = new XMLHttpRequest();
-        
-        xhr.open('GET', `negociacoes/${weekName}`);
+    constructor(){
+        this._http = new HttpService();
+    }
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == 4){
-                if(xhr.status == 200){
+    import(period) {
+        if(period != 'todos'){
 
-                    callback(null, this._generateTransactionList(xhr));
+            return this._http.get(`negociacoes/${period}`);
 
-                }else{
-                    callback('It could not import the transactions', null);
-                }
-            }
+        }else{
+            
+            let promise = Promise.all([
+                this._http.get(`negociacoes/semana`),
+                this._http.get(`negociacoes/anterior`),
+                this._http.get(`negociacoes/retrasada`)
+            ]);
+
+            let transactionListFlat = new TransactionList();
+
+            promise.then((transactionListAll) => {
+                transactionListAll.reduce((flatList, list) => flatList.concat(list), [])
+                    .forEach(transactionList => {
+                        console.log(transactionList);
+                        
+                        transactionList.forEach(transaction => {
+                            transactionListFlat.add(transaction)
+                        }) 
+                    });
+            })
+
+            let flatPromise = new Promise((resolve, reject) => {
+                resolve(transactionListFlat);
+            })
+
+            return flatPromise;
         }
-        xhr.send();    
-    }
-
-    _generateTransactionList(xhr){
-
-        let transactionList = new TransactionList();
-
-        JSON.parse(xhr.responseText).map(jsonObject => new Transaction(new Date(jsonObject.data), jsonObject.quantidade, jsonObject.valor))
-        .forEach(transaction => transactionList.add(transaction));
         
-        return transactionList;
     }
-
 }

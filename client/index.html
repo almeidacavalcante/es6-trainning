@@ -37,6 +37,13 @@
     <a href="post.html" >Enviar dados ao Servidor</a>
     
     <div class="text-center">
+        <select name="period" id="period">
+            <option value="semana" selected >Esta Semana</option>
+            <option value="anterior">Semana Passada</option>
+            <option value="retrasada">Semana Retrasada</option>
+            <option value="todos">Todos os Registros</option>
+        </select>
+
         <button onclick="transactionController.import()" class="btn btn-primary text-center" type="button">
             Importar Negociações
         </button>
@@ -60,6 +67,7 @@
     <script src="js/app/services/ProxyFactory.js"></script>
     <script src="js/app/helpers/Bind.js"></script>
     <script src="js/app/services/TransactionService.js"></script>
+    <script src="js/app/services/HttpService.js"></script>
     <!-- <script src="js/practice/practiceDate.js"></script> -->
 
 

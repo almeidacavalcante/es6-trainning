@@ -35,24 +35,19 @@ class TransactionController {
     }
 
     import(){
-        let service = new TransactionService();
-        service.import('semana', (err, transactionList) => {
-            console.log(transactionList);
-            
-            if (err) {
-                this._message.text = err;
-                return;
-            }
-            console.log(typeof(transactionList));
-            
-            transactionList.forEach(transaction => {
-                console.log(transaction);
-                console.log(transaction.date);
-                
-                this._transactionList.add(transaction.date, transaction.quantity, transaction.value);
-            });
-        });
+
+        let period = document.querySelector('#period').value;
         
+        let service = new TransactionService();
+
+        service.import(period)
+            .then((transactionList) => {
+                transactionList.transactions.forEach(transaction => {
+                    this._transactionList.add(transaction);
+                    this._message.text = 'Trasactions successfully imported';
+                });
+            })
+            .catch(err => this._message.text = 'It could not reach the transactions')
     }
 
     _createTransaction(){
