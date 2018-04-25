@@ -9,10 +9,10 @@ class TransactionView extends View {
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>DATA</th>
-                    <th>QUANTIDADE</th>
-                    <th>VALOR</th>
-                    <th>VOLUME</th>
+                    <th onclick="transactionController.sort('date')">DATA</th>
+                    <th onclick="transactionController.sort('quantity')">QUANTIDADE</th>
+                    <th onclick="transactionController.sort('value')">VALOR</th>
+                    <th onclick="transactionController.sort('volume')">VOLUME</th>
                 </tr>
             </thead>
             

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     
 </head>
-<body class="container">
+<body class="container" onclick="transactionController.showDatePicker()">
     
     <h1 class="text-center">Negociações</h1>
     
@@ -19,7 +19,7 @@
         <div class="form-group">
             <label for="data">Data</label>
             <input type="date" id="data" class="form-control" required autofocus/>        
-        </div>    
+        </div> 
         
         <div class="form-group">
             <label for="quantidade">Quantidade</label>
@@ -68,8 +68,10 @@
     <script src="js/app/helpers/Bind.js"></script>
     <script src="js/app/services/TransactionService.js"></script>
     <script src="js/app/services/HttpService.js"></script>
-    <!-- <script src="js/practice/practiceDate.js"></script> -->
+    
+    <script src="js/app/services/ConnectionFactory.js"></script>
 
+    <!-- <script src="js/practice/practiceDate.js"></script> -->
 
     <script>        
         let transactionController = new TransactionController()

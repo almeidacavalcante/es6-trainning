@@ -17,7 +17,24 @@ class HttpService {
             }
             xhr.send();  
         })
+    }
 
+    post(route, data){
+        return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', route, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.onreadystatechange = () => {
+                if(xhr.status == 200){
+                    
+                    resolve("POST completed");
+                }else{
+                    reject("It could not reach the serve");
+                }
+            }
+            let jsonString = JSON.stringify(data);          
+            xhr.send(jsonString);
+        })
     }
 
     

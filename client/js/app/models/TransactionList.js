@@ -17,6 +17,17 @@ class TransactionList {
         this._transactionList = [];
     }
 
+    sort(criteria){
+        console.log('sort... transactionList');
+        
+        this._transactionList.sort(criteria);
+    }
+
+    invertedSort(){
+        console.log('inverted Sort... transactionList');
+        this._transactionList.reverse();
+    }
+
     get transactions(){
 
         return [].concat(this._transactionList);
