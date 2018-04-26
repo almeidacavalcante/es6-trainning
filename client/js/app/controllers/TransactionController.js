@@ -19,6 +19,10 @@ class TransactionController {
             new MessageView($('#message-view')),
             'text'
         );
+
+        this._service = new TransactionService();
+
+        this._fetch();
     }
 
     showDatePicker(){
@@ -26,61 +30,79 @@ class TransactionController {
     }
 
     clear(){
-
         this._transactionList.clear();
         this._message.text = 'Transactions List successfully cleared';
     }
 
-    add(event) {
+    add(event=null) {
+        if(event) event.preventDefault();
 
-
-        event.preventDefault();
         let transaction = this._createTransaction();
-        this.persist(transaction);
-        this._transactionList.add(transaction);
-        this._message.text = 'Transaction successfully included!';
-        this._clear();
+
+        this._service
+            .add(transaction)
+            .then((message) => {
+                this._message.text = message;
+                this._transactionList.add(transaction);
+                this._clear();
+            })
+            .catch((message)=>{
+                this._message.text = message;
+            });
     }
 
-    persist(transaction){
-        ConnectionFactory.getConnection().then(connection => {
-            ConnectionFactory.addTransaction(transaction);
+    removeAll(){
+        ConnectionFactory.getConnection().then((connection) => {
+            new TransactionDAO(connection).removeAll().then((message) => {
+                this._message.text = message;
+                this.clear();
+            })
+            .catch((message) =>{
+                this._message.text = message;
+            })
         })
-        
+    }
+
+    _fetch(){
+        ConnectionFactory.getConnection().then((connection) => {
+            new TransactionDAO(connection).fetch().then((transactionList) => {
+                transactionList.transactions.forEach(transaction => {
+                    this._transactionList.add(transaction);
+                })
+            })
+        })
+    }
+
+    addImportedTransaction(transaction){
+        this._service.add(transaction).then((message) => {
+            this._transactionList.add(transaction);
+            this._message.text = message;
+        })
     }
 
     import(){
-
         let period = document.querySelector('#period').value;
-        
-        let service = new TransactionService();
 
-        service.import(period)
+        this._service.import(period)
             .then((promiseList) => {
 
                 if(Array.isArray(promiseList)){
-                    console.log('is Array');
                     promiseList.forEach(transactionList => {                        
                         transactionList.transactions.forEach(transaction => {
-                            this._transactionList.add(transaction);
-                            this._message.text = 'Trasactions successfully imported';
+                            this.addImportedTransaction(transaction);
                         })
                     })              
                 }else{
                     promiseList.transactions.forEach(transaction => {
-                        this._transactionList.add(transaction);
-                        this._message.text = 'Trasactions successfully imported';
+                        this.addImportedTransaction(transaction);
                     });
                 }
             })
-            .catch(err => this._message.text = 'It could not reach the transactions')
+            .catch(err => this._message.text = 'It could not reach the transactions' + err)
     }
 
-    sort(column){
-        console.log(column);
-        console.log(this._currentColumn);
-        
-        
+    sort(column){   
+
         if(this._currentColumn == column){         
             this._transactionList.invertedSort();
         }else{
@@ -93,12 +115,10 @@ class TransactionController {
 
     _createTransaction(){
 
-        let date = DateHelper.stringToDate(this._inputDate.value)
-
         return new Transaction(
-            date,
-            this._inputQuantity.value,
-            this._inputValue.value 
+            DateHelper.stringToDate(this._inputDate.value),
+            parseInt(this._inputQuantity.value),
+            parseFloat(this._inputValue.value) 
         )      
     }
 

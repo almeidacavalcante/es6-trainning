@@ -53,42 +53,5 @@ var ConnectionFactory = (function(){
             if(!connection.objectStoreNames.contains(stores))
                 connection.createObjectStore(stores, {autoIncrement: true});
         }
-
-        static fetchTransactions(){
-            let store = this.connection.transaction(stores, 'readwrite').objectStore(stores[0]);
-            let cursor = store.openCursor();
-        
-            cursor.onsuccess = e => {
-
-                let iterator = e.target.result;
-                if(iterator){
-                    let transaction = iterator.value;
-                    transactionList.add(new Transaction(transaction._date, transaction._quantity, transaction._value));
-                    iterator.continue();
-                }else{
-                    console.log(transactionList);
-                    return this.transactionList;
-                }
-            }
-            
-            cursor.onerror = e => {
-                console.log(e.target.error.name);
-            }
-        }
-
-        static addTransaction(object){
-
-            console.log(this.connection);
-            
-            //Use enums para evitar esse o raw number 0
-            let store = this.connection.transaction(stores, 'readwrite').objectStore(stores[0]);
-            let request = store.add(object);
-            
-            request.onsuccess = e => {
-                console.log('RESULT: ', e.target.result);
-                return e.target.result;
-            }
-            
-        }
     }
 })();

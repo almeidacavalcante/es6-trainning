@@ -27,4 +27,8 @@ class Transaction {
     get stringDate(){
         return DateHelper.toString(this._date);
     }
+
+    isEquals(transaction){
+        return JSON.stringify(this) == JSON.stringify(transaction);
+    }
 }

@@ -1,22 +1,18 @@
 class HttpService {
 
-    get(route){
-        return new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-        
-            xhr.open('GET', route);
+    _handleError(res){
+        if(!res.ok) throw new Error(res.statusText)
+        return res;
+    }
     
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4){
-                    if(xhr.status == 200){
-                        resolve(this._generateTransactionList(xhr));
-                    }else{
-                        reject('It could not import the transactions');
-                    }
-                }
-            }
-            xhr.send();  
-        })
+    get(route){
+        return fetch(route)
+            .then(res => {
+                return this._handleError(res);
+            })
+            .then(res => {
+                return res.json();
+            });
     }
 
     post(route, data){

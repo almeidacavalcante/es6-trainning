@@ -47,7 +47,7 @@
         <button onclick="transactionController.import()" class="btn btn-primary text-center" type="button">
             Importar Negociações
         </button>
-        <button onclick="transactionController.clear()" class="btn btn-primary text-center" type="button">
+        <button onclick="transactionController.removeAll()" class="btn btn-primary text-center" type="button">
             Apagar
         </button>
     </div> 
@@ -68,8 +68,8 @@
     <script src="js/app/helpers/Bind.js"></script>
     <script src="js/app/services/TransactionService.js"></script>
     <script src="js/app/services/HttpService.js"></script>
-    
     <script src="js/app/services/ConnectionFactory.js"></script>
+    <script src="js/app/dao/TransactionDAO.js"></script>
 
     <!-- <script src="js/practice/practiceDate.js"></script> -->
 
